@@ -102,3 +102,7 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
     object-fit: cover;  
 }
+
+#profile-container p{
+    max-width: 50%;
+}
