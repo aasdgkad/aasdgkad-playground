@@ -15,8 +15,11 @@ body {
     flex-direction: column;
     margin: 0;
     font-family: Arial, sans-serif;
-    background: black;
+    background: linear-gradient(to bottom, #000000, rgb(0, 48, 0)), no-repeat;
     color: rgb(34, 139, 34);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+    height: 100vh;
 }
 header, footer {
     padding: 1rem;
@@ -37,6 +40,7 @@ nav ul li:hover {
     transform: scale(1.02);
 }
 nav ul li a {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     text-decoration: none;
     color: rgb(34, 139, 34);
     transition: color 0.2s ease-in-out;
@@ -46,6 +50,7 @@ nav ul li a:hover {
 }
 main {
     padding: 2rem;
+    flex: 1;
 }
 
 #ptitle:hover{
@@ -72,15 +77,21 @@ main {
 #contact-button{
     display: flex;
     position: absolute;
-    width: 10%;
-    height: 6%;
+    width: 8%;
+    height: 4%;
     left: 45%;
     top: 35%;
-    background-color: rgb(34, 139, 34);
+    background-color: rgb(27, 112, 27);
     justify-content: center;
     align-items: center;
     color: black;
     user-select: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    border: solid black;
+    font-size: 20px;
+    text-align: center;
 }
 
 #contact-button:hover{
@@ -100,7 +111,7 @@ main {
     border-radius: 50%;       
     border: 5px solid rgb(34, 139, 34); 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
-    object-fit: cover;  
+    object-fit: cover;
 }
 
 #profile-container p{
