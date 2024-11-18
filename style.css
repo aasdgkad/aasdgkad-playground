@@ -21,57 +21,62 @@ body {
     font-size: larger;
     height: 100vh;
 }
+
 header, footer {
     padding: 1rem;
     text-align: center;
 }
+
 nav ul {
     display: flex;
     list-style: none;
     justify-content: center;
     padding: 0;
 }
+
 nav ul li {
     margin: 0 1rem;
-    transition: transform 0.2s;
+    transition: transform 0.2s, color 0.2s;
     transform: scale(1.0);
 }
-nav ul li:hover {
-    transform: scale(1.02);
+
+nav ul li:hover{
+    transform: scale(1.05);
+    color: rgb(38, 192, 0);
 }
+
 nav ul li a {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     text-decoration: none;
-    color: rgb(34, 139, 34);
-    transition: color 0.2s ease-in-out;
+    color: inherit;
 }
-nav ul li a:hover {
-    color: rgb(38, 192, 0);
-}
+
 main {
     padding: 2rem;
     flex: 1;
 }
 
-#ptitle:hover{
+.hover-text{
+    display: inline-block;
+    transition: transform 0.2s, color 0.2s;
+    transform: scale(1.0);
+    color: rgb(34, 139, 34);
+}
+
+.hover-text:hover{
     transform: scale(1.05);
+    color: rgb(38, 192, 0);
 }
 
 #ptitle{
     display: inline-block;
-    transition: transform 0.2s;
-    transform: scale(1.0);
-}
-
-#ptitle a:hover{
-    color: rgb(38, 192, 0);
+    user-select: none;
     cursor:pointer;
 }
 
 #ptitle a{
     text-decoration: none;
-    color: rgb(34, 139, 34);
-    transition: color 0.2s ease-in-out;
+    color: inherit;
 }
 
 #contact-button{
@@ -112,6 +117,14 @@ main {
     border: 5px solid rgb(34, 139, 34); 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
     object-fit: cover;
+    opacity: 0.5;
+    transform: scale(0.8);
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+#profile-pic:hover {
+    opacity: 1.0;
+    transform: scale(1.0);
 }
 
 #profile-container p{
