@@ -1,12 +1,11 @@
-@keyframes hoveran {
+@keyframes dropdown-fall {
     0% {
-        transform: scale(1.0);
-    }
-    50%{
-        transform: scale(1.1);
+        transform: translateY(-20%);
+        opacity:0;
     }
     100% {
-        transform: scale(1.0);
+        transform: translateY(0);
+        opacity:1;
     }
 }
 
@@ -86,10 +85,10 @@ main {
     height: 4%;
     left: 45%;
     top: 35%;
-    background-color: rgb(27, 112, 27);
+    background: linear-gradient(to top, #000000, rgb(0, 48, 0)), no-repeat;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: rgb(38, 192, 0);
     user-select: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -129,4 +128,58 @@ main {
 
 #profile-container p{
     max-width: 50%;
+}
+
+#dropdown-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: inherit;
+    position:absolute;
+    left: 45%;
+    height:8%;
+    width:10%;
+    color: rgb(38, 192, 0);
+}
+
+#dropdown-container *{
+    border-color: black;
+    border-style: solid;
+    border-radius: 1%;
+    width:99%;
+    height:100%;
+    padding-top:4%;
+    padding-bottom: 4%;
+    margin:0;
+    justify-content: center; 
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+}
+
+#dropdown-container #dropdown-title{
+    display:flex;
+}
+
+#dropdown-container .dropdown-item{
+    display:none;
+    opacity:0;
+}
+
+#dropdown-container:hover{
+    height:40%;
+}
+
+.dropdown-item:hover, #dropdown-title:hover{
+    background-color: rgb(27, 112, 27);
+    color: rgb(38, 240, 0)
+}
+
+#dropdown-container:hover .dropdown-item{
+    display:flex;
+    animation-name: dropdown-fall;
+    animation-duration: 0.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
