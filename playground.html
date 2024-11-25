@@ -23,15 +23,16 @@
     <main>
         <div id="dropdown-container">
             <p id="dropdown-title">Various Objects</p>
-            <p class="dropdown-item" onclick="hidePlayspace(); pongInit()">Pong?</p>
-            <p class="dropdown-item">Object 2</p>
+            <p class="dropdown-item" onclick="hidePlayspace(); pongInit(1)">Pong?</p>
+            <p class="dropdown-item" onclick="">Idk?</p>
             <p class="dropdown-item" onclick="hidePlayspace(); dogAPI()">Cat?</p>
             <p class="dropdown-item">Object 4</p>
         </div>
         <div id="playspace">
-            <img>
             <p>Hey?</p>
+            <img>
             <canvas></canvas>
+            <div onclick="pongInit(2)">Start</div>
         </div>
     </main>
 </body>

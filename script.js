@@ -41,10 +41,10 @@ function aboutPageInfo() {
 
 //this argument is a list always
 function interactiveText(hs = ".hover-element") {
-  if(hs == ".hover-element"){
+  if (hs == ".hover-element") {
     hs = document.querySelectorAll(".hover-element");
   }
-  else{
+  else {
     console.log(hs);
   }
   for (let i = 0; i < hs.length; i++) {
@@ -65,9 +65,9 @@ function interactiveText(hs = ".hover-element") {
   return hs;
 }
 
-function hidePlayspace(){
+function hidePlayspace() {
   let items = document.querySelectorAll("#playspace *");
-  for(let i = 0; i < items.length; i++){
+  for (let i = 0; i < items.length; i++) {
     items[i].style["display"] = "none";
   }
 }
@@ -101,7 +101,7 @@ function dogAPI() {
       text.innerHTML = parsed["facts"];
       text.style["display"] = "block";
       text.innerHTML = interactiveText([text])[0].innerHTML;
-      document.querySelectorAll("#playspace p span").forEach((el)=> el.style["display"] = "inline-block");
+      document.querySelectorAll("#playspace p span").forEach((el) => el.style["display"] = "inline-block");
       console.log(text);
       console.log(parsed);
     })
@@ -119,27 +119,44 @@ var ey = 0, edes;
 
 var bx = 350, by = 100;
 var bvx = 6.0, bvy = -3.0;
-var vel = 4;
+var vel = 20;
 
 var estimate = true;
 
 var pongRunning = false;
-function pongInit() {
-  canvas.width = 740;
-  canvas.height = 400;
-  canvas.style["display"] = "block";
+function pongInit(phase) {
+  switch (phase) {
+    case 1: {
+      document.querySelector("#playspace div").style["display"] = "flex";
+      let text = document.querySelector("#playspace p");
+      text.innerHTML = "Press W to move up and S to move down, You got this do not worry"
+      text = interactiveText([text])[0];
+      document.querySelectorAll("#playspace p span").forEach((el)=>{el.style["display"] = "inline-block"});
+      text.style["display"] = "block";
+      break;
+    }
+    case 2: {
+      document.querySelector("#playspace div").style["display"] = "none";
+      document.querySelector("#playspace p").style["display"] = "none";
 
-  py = 0;
-  ey = 0;
+      canvas.width = 740;
+      canvas.height = 400;
+      canvas.style["display"] = "block";
 
-  bx = 350, by = 100;
-  bvx = 6.0, bvy = -6.0;
-  vel = 4;
-  
-  estimate = true;
+      py = 0;
+      ey = 0;
 
-  if(!pongRunning){
-    requestAnimationFrame(pongLoop);
+      bx = 350, by = 100;
+      bvx = 6.0, bvy = -6.0;
+      vel = 20;
+
+      estimate = true;
+
+      if (!pongRunning) {
+        requestAnimationFrame(pongLoop);
+      }
+      break;
+    }
   }
 }
 
@@ -147,31 +164,44 @@ function pongLoop() {
   pongRunning = true;
 
   py += vel * ((keys["s"]) - (keys["w"]))
+  if(py<0){
+    py = 0;
+  }
+  else if(py > 300){
+    py = 300;
+  }
 
   bx += bvx;
   by += bvy;
 
-  if(bvx > 0 && estimate){
-    let estimy = by+bvy*(630-bx)/bvx;
+  if (bvx > 0 && estimate) {
+    let estimy = by + bvy * (630 - bx) / bvx;
     let cbvy = bvy;
     let cbx = bx, cby = by;
-    while((estimy <= 0 || estimy >= 370) && cbx < 630){
-      if(estimy <= 0){
-        cbx += bvx*cby/(-cbvy);
+    while ((estimy <= 0 || estimy >= 370) && cbx < 630) {
+      if (estimy <= 0) {
+        cbx += bvx * cby / (-cbvy);
         cby = 0;
       }
-      else{
-        cbx += bvx*(370-cby)/cbvy;
+      else {
+        cbx += bvx * (370 - cby) / cbvy;
         cby = 370;
       }
       cbvy = -cbvy;
-      estimy = cby+cbvy*(630-cbx)/bvx;
+      estimy = cby + cbvy * (630 - cbx) / bvx;
     }
     edes = estimy - 50;
     estimate = false;
   }
-  else if(Math.abs(ey - edes) > vel - 1 ){
-    ey += vel*((ey < edes)*2-1)
+  else if (Math.abs(ey - edes) > vel - 1) {
+    ey += vel * ((ey < edes) * 2 - 1)
+    if(ey<0){
+      ey = 0;
+    }
+    else if(ey > 300){
+      ey = 300;
+    }
+  
   }
 
   if (by <= 0) {
@@ -183,14 +213,14 @@ function pongLoop() {
     bvy = -bvy;
   }
 
-  if(bx > 80 && bx + bvx < 70){
+  if (bx > 80 && bx + bvx < 70) {
     bx = 80;
   }
   if (bvx < 0 && bx <= 80 && bx >= 70) {
     if (by <= py + 100 && by + 30 >= py) {
       bx = 80;
       let rangle = Math.atan(Math.abs(bvx / bvy)) + Math.random() - 0.5 * Math.PI / 7;
-      let speed = Math.min(Math.sqrt(bvy * bvy + bvx * bvx)*1.05, 20);
+      let speed = Math.min(Math.sqrt(bvy * bvy + bvx * bvx) * 1.05, 20);
       bvy = ((bvy > 0) * 2 - 1) * Math.abs(Math.cos(rangle) * speed);
       bvx = ((bvx < 0) * 2 - 1) * Math.sin(rangle) * speed;
       estimate = true;
@@ -198,33 +228,33 @@ function pongLoop() {
   }
   else if (bx <= 0) {
     const img = new Image();
-    img.src = 'https://i.ytimg.com/vi/ZS5hZjAItYY/maxresdefault.jpg'; 
+    img.src = 'https://i.ytimg.com/vi/ZS5hZjAItYY/maxresdefault.jpg';
 
     img.onload = () => {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height); 
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
     pongRunning = false;
     return;
   }
 
-  if(bx < 630 && bx + bvx > 640){
+  if (bx < 630 && bx + bvx > 640) {
     bx = 630;
   }
   if (bvx > 0 && bx >= 630 && bx <= 640) {
     if (by <= ey + 100 && by + 30 >= ey) {
       bx = 630;
       let rangle = Math.atan(Math.abs(bvx / bvy)) + Math.random() - 0.5 * Math.PI / 7;
-      let speed = Math.min(Math.sqrt(bvy * bvy + bvx * bvx)*1.05, 20);
+      let speed = Math.min(Math.sqrt(bvy * bvy + bvx * bvx) * 1.05, 20);
       bvy = ((bvy > 0) * 2 - 1) * Math.abs(Math.cos(rangle) * speed);
       bvx = ((bvx < 0) * 2 - 1) * Math.sin(rangle) * speed;
     }
   }
   else if (bx >= 710) {
     const img = new Image();
-    img.src = 'https://png.pngtree.com/png-vector/20220520/ourlarge/pngtree-happy-emoji-emoticon-showing-double-thumbs-up-like-png-image_4708251.png'; 
+    img.src = 'https://png.pngtree.com/png-vector/20220520/ourlarge/pngtree-happy-emoji-emoticon-showing-double-thumbs-up-like-png-image_4708251.png';
 
     img.onload = () => {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height); 
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
     pongRunning = false;
     return;
